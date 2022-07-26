@@ -8,9 +8,9 @@ const User = require("../models/userSchema");
 // get all user details route
 exports.getAllUsers = async (req, res) => {
     try {
-        const user = await User.userModel.find();
+        const findUsers = await User.userModel.find();
     
-        res.status(200).json(user);
+        res.status(200).json(findUsers);
       } catch (error) {
         res.status(404).json({ message: error.message });
       }

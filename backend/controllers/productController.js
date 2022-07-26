@@ -20,7 +20,7 @@ exports.newProduct = async (req, res) => {
             status: true,
             created_date: utcTimeStamp,
             updated_date: utcTimeStamp,
-            isDeleted: false,
+            isDeleted: true,
         })
         const savedProduct = await product.save();
         res.send(savedProduct);
@@ -29,39 +29,49 @@ exports.newProduct = async (req, res) => {
     }
 }
 
-// get all user details route
-exports.getAllproducts = async (req, res) => {
+// get all product details route
+exports.getAllProducts = async (req, res) => {
     try {
-        const product = await Product.productModel.find();
-    
-        res.status(200).json(product);
+        const findProducts = await Product.productModel.find();
+        res.status(200).json(findProducts);
       } catch (error) {
         res.status(404).json({ message: error.message });
       }
 };
 
-// // get one user details route
-// exports.getUser = async (req, res) => {
-//     const id = req.params.id;
-//     try {
-//         const findUser = await User.userModel.findById(id);
+// // get one product details route
+exports.getProduct = async (req, res) => {
+    const id = req.params.id;
+    try {
+        const findProduct = await Product.productModel.findById(id);
     
-//         res.send(findUser);
-//     } catch (error) {
-//         res.status(404).json({ message: error.message });        
-//     }
-// };
+        res.send(findProduct);
+    } catch (error) {
+        res.status(404).json({ message: error.message });        
+    }
+};
 
-// // set inactive for one user
-// exports.setUserStatus = async (req, res) => {
-//     const id = req.params.id;
-//     try {
-//         const findUser = await User.userModel.findById(id);
-//         const userStatus = findUser.status;
+// set inactive for one product
+exports.setProductStatus = async (req, res) => {
+    const id = req.params.id;
+    try {
+        const findProduct = await Product.productModel.findById(id);
+        const productStatus = findProduct.status;
         
-//         const result = await User.userModel.findByIdAndUpdate(id, { status: !userStatus} );
-//         res.send(result);
-//     } catch (error) {
-//         res.status(404).json({ message: error.message });    
-//     }
-// };
+        const result = await Product.productModel.findByIdAndUpdate(id, { status: !productStatus} );
+        res.send(result);
+    } catch (error) {
+        res.status(404).json({ message: error.message });    
+    }
+};
+
+// delete a product
+exports.deleteProduct = async (req, res) => {
+    const id = req.params.id;
+    try {
+        const findProduct = await Product.productModel.findByIdAndDelete(id);
+        res.send("successfully deleted!!");
+    } catch (error) {
+        
+    }
+};
