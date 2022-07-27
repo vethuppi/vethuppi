@@ -61,7 +61,7 @@ exports.setProductStatus = async (req, res) => {
         const result = await Product.productModel.findByIdAndUpdate(id, { status: !productStatus} );
         res.send(result);
     } catch (error) {
-        res.status(404).json({ message: error.message });    
+        res.status(404).json({ message: error.message });
     }
 };
 
@@ -69,9 +69,9 @@ exports.setProductStatus = async (req, res) => {
 exports.deleteProduct = async (req, res) => {
     const id = req.params.id;
     try {
-        const findProduct = await Product.productModel.findByIdAndDelete(id);
-        res.send("successfully deleted!!");
+        const deleteProduct = await Product.productModel.findByIdAndDelete(id);
+        res.send("successfully deleted!!" + deleteProduct);
     } catch (error) {
-        
+        res.status(404).json({ message: error.message });
     }
 };

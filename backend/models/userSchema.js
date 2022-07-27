@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const userCollection = "user"; // collection name is users(user pluralized)
-// const counterCollection = "counter"; // collection name is counter(counter pluralized)
 
 const userSchema = new mongoose.Schema({
     full_name: {
@@ -26,9 +25,6 @@ const userSchema = new mongoose.Schema({
         required: true,
         min: 8,
     },
-    status: {
-        type: 'boolean',
-    },
     role: {
         type: 'string',
     },
@@ -38,18 +34,10 @@ const userSchema = new mongoose.Schema({
     updated_date: {
         type: 'string',
     },
+    isDeleted: {
+        type: 'boolean',
+    },
 })
-
-// Schma for Sequence
-// const userCounterSchema = {
-//     id: {
-//         type: 'string',
-//     },
-//     user_seq: {
-//         type: 'number',
-//     },
-// };
 
 
 module.exports.userModel = mongoose.model(userCollection, userSchema);
-// module.exports.userCounterModel = mongoose.model(counterCollection, userCounterSchema);

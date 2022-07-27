@@ -27,7 +27,7 @@ exports.signup = async (req, res) => {
                 phone_no: req.body.phone_no,
                 address: req.body.address,
                 password: hashPassword,
-                status: true,
+                isDeleted: false,
                 role: "admin",
                 created_date: utcTimeStamp,
                 updated_date: utcTimeStamp,
@@ -55,9 +55,9 @@ exports.signin =  async (req, res) => {
             } else {
                 const token = await tokenGenerator(existingUser.email);
                 res.cookie("jwt", token, {httpOnly: true});
-                const checkStatus = await existingUser.status;
+                const checkIsDeleted = await existingUser.isDeleted;
                 const checkRole = await existingUser.role;
-                if(!checkStatus) {
+                if(checkIsDeleted) {
                     res.send("Inactive");
                 } else {
                     if(checkRole === "customer") {
