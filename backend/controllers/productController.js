@@ -70,7 +70,7 @@ exports.deleteProduct = async (req, res) => {
     const id = req.params.id;
     try {
         const deleteProduct = await Product.productModel.findByIdAndDelete(id);
-        res.send("successfully deleted!!" + deleteProduct);
+        res.send("successfully deleted!!");
     } catch (error) {
         res.status(404).json({ message: error.message });
     }

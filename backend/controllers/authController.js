@@ -28,7 +28,7 @@ exports.signup = async (req, res) => {
                 address: req.body.address,
                 password: hashPassword,
                 isDeleted: false,
-                role: "admin",
+                role: "customer",
                 created_date: utcTimeStamp,
                 updated_date: utcTimeStamp,
             })
@@ -45,15 +45,15 @@ exports.signup = async (req, res) => {
 // login route
 exports.signin =  async (req, res) => {
     try {
-        const existingUser = await User.userModel.findOne({email:req.body.email});
+        const existingUser = await User.userModel.findOne({phone_no:req.body.phone_no});
         if(!existingUser){
-            res.send("Email is invalid");
+            res.send("Phone no is invalid");
         }else{
             const checkUser = await hashValidator(req.body.password, existingUser.password);
             if(!checkUser){
                 res.send("password is invalid");
             } else {
-                const token = await tokenGenerator(existingUser.email);
+                const token = await tokenGenerator(existingUser.phone_no);
                 res.cookie("jwt", token, {httpOnly: true});
                 const checkIsDeleted = await existingUser.isDeleted;
                 const checkRole = await existingUser.role;
