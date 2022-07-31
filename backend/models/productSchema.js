@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const productCollection = "product"; // collection name is users(user pluralized)
-// const counterCollection = "counter"; // collection name is counter(counter pluralized)
 
 const productSchema = new mongoose.Schema({
     title: {
@@ -45,16 +44,4 @@ const productSchema = new mongoose.Schema({
     },
 })
 
-// Schma for Sequence
-// const userCounterSchema = {
-//     id: {
-//         type: 'string',
-//     },
-//     user_seq: {
-//         type: 'number',
-//     },
-// };
-
-
 module.exports.productModel = mongoose.model(productCollection, productSchema);
-// module.exports.userCounterModel = mongoose.model(counterCollection, userCounterSchema);

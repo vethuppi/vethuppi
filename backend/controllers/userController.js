@@ -8,6 +8,7 @@ const User = require("../models/userSchema");
 // get all user(customer) details route
 exports.getAllUsers = async (req, res) => {
     try {
+        const jwtToken = req.cookie;
         const findUsers = await User.userModel.aggregate([
             { $match: { role: { $eq: "customer" }, isDeleted: { $eq: false } } }, 
         ]);

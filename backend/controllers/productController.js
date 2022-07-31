@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 // Models
 const Product = require("../models/productSchema");
 
-// create neew product
+// create new product
 exports.newProduct = async (req, res) => {
     try {
         const utcTimeStamp = new Date().getTime();
@@ -20,7 +20,7 @@ exports.newProduct = async (req, res) => {
             status: true,
             created_date: utcTimeStamp,
             updated_date: utcTimeStamp,
-            isDeleted: true,
+            isDeleted: false,
         })
         const savedProduct = await product.save();
         res.send(savedProduct);
@@ -51,7 +51,7 @@ exports.getProduct = async (req, res) => {
     }
 };
 
-// set inactive for one product
+// set inactive(status) for one product (show on user panel)
 exports.setProductStatus = async (req, res) => {
     const id = req.params.id;
     try {
@@ -59,6 +59,19 @@ exports.setProductStatus = async (req, res) => {
         const productStatus = findProduct.status;
         
         const result = await Product.productModel.findByIdAndUpdate(id, { status: !productStatus} );
+        res.send(result);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+};
+
+// set isDeleted for one product
+exports.setProductDeleted = async (req, res) => {
+    const id = req.params.id;
+    try {
+        const findProduct = await Product.productModel.findById(id);
+        const productDeleted = findProduct.isDeleted;
+        const result = await Product.productModel.findByIdAndUpdate(id, { isDeleted: !productDeleted });
         res.send(result);
     } catch (error) {
         res.status(404).json({ message: error.message });
