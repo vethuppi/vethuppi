@@ -14,21 +14,20 @@ const authVerify = require("../helpers/authVerify");
 // signup route
 exports.signup = async (req, res) => {
     try {
-        const existingUser = await User.userModel.findOne({email:req.body.email});
+        const existingUser = await User.userModel.findOne({phone_no:req.body.phone_no});
         if(existingUser) {
-            res.send('Email Address already registered!!!');
+            res.send('Phone No already registered!!!');
         } else {
             const utcTimeStamp = new Date().getTime();
             const hashPassword = await hashGenerate(req.body.password);
             
             const user = new User.userModel({
                 full_name: req.body.full_name,
-                email: req.body.email,
                 phone_no: req.body.phone_no,
                 address: req.body.address,
                 password: hashPassword,
                 isDeleted: false,
-                role: "admin",
+                role: "customer",
                 created_date: utcTimeStamp,
                 updated_date: utcTimeStamp,
             })

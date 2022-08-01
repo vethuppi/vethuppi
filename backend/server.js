@@ -18,6 +18,8 @@ const authRoutes = require("./routes/authRoute");
 const userRoutes = require("./routes/userRoute");
 const productRoutes = require("./routes/productRoute");
 
+// const checkRole = require("./middleware/isAdmin");
+
 app.use("/", authRoutes);
 app.use("/admin/users", userRoutes);
 app.use("/admin/products", productRoutes);
