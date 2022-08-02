@@ -9,7 +9,7 @@ const User = require("../models/userSchema");
 const {hashGenerate} = require("../helpers/hashing");
 const {hashValidator} = require("../helpers/hashing");
 const {tokenGenerator} = require("../helpers/token");
-const authVerify = require("../helpers/authVerify");
+// const authVerify = require("../helpers/authVerify");
 
 // signup route
 exports.signup = async (req, res) => {
@@ -52,7 +52,7 @@ exports.signin =  async (req, res) => {
             if(!checkUser){
                 res.send("password is invalid");
             } else {
-                const token = await tokenGenerator(existingUser.phone_no);
+                const token = await tokenGenerator(existingUser.phone_no, existingUser.role);
                 res.cookie("jwt", token, {httpOnly: true});
                 const checkIsDeleted = await existingUser.isDeleted;
                 const checkRole = await existingUser.role;

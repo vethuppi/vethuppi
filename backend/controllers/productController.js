@@ -39,7 +39,7 @@ exports.getAllProducts = async (req, res) => {
       }
 };
 
-// // get one product details route
+// get one product details route
 exports.getProduct = async (req, res) => {
     const id = req.params.id;
     try {
@@ -50,6 +50,18 @@ exports.getProduct = async (req, res) => {
         res.status(404).json({ message: error.message });        
     }
 };
+
+// edit one product
+exports.editProduct = async (req, res) => {
+    const id = req.params.id;
+    const update = req.body;
+    try {
+      const result = await Product.productModel.findByIdAndUpdate(id, update);
+      res.status(200).json(result);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
 
 // set inactive(status) for one product (show on user panel)
 exports.setProductStatus = async (req, res) => {

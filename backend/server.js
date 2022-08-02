@@ -18,11 +18,11 @@ const authRoutes = require("./routes/authRoute");
 const userRoutes = require("./routes/userRoute");
 const productRoutes = require("./routes/productRoute");
 
-// const checkRole = require("./middleware/isAdmin");
+const authVerify = require("./helpers/authVerify");
 
 app.use("/", authRoutes);
-app.use("/admin/users", userRoutes);
-app.use("/admin/products", productRoutes);
+app.use("/admin/users", authVerify, userRoutes);
+app.use("/admin/products", authVerify, productRoutes);
 
 app.listen(3000, () => {
   console.log("Server is listening on port 3000");

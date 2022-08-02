@@ -1,7 +1,8 @@
 const jwt = require("jsonwebtoken");
 
-const  tokenGenerator = (phone_no) => {
-    const token = jwt.sign({phone_no}, process.env.JWT_KEY, {expiresIn: "3hours"})
+const  tokenGenerator = (phone_no, role) => {
+    const data = {phone_no, role};
+    const token = jwt.sign(data, process.env.JWT_KEY, {expiresIn: "3hours"})
     return token;
 }
 
