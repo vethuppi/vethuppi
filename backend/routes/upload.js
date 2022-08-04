@@ -45,12 +45,8 @@ router.post("/destroy", authVerify, (req, res) => {
     const { public_id } = req.body;
     if (!public_id) return res.status(400).json({ msg: "No images Selected" });
 
-     if (req.public_id !== public_id)
-        return res.status(400).json({ msg: "There is no file to delete" });
-
     cloudinary.v2.uploader.destroy(public_id, async (err, result) => {
       if (err) throw err;
-      
 
       res.json({ msg: "Deleted Image" });
     });
