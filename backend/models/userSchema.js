@@ -24,10 +24,10 @@ const userSchema = new mongoose.Schema({
     role: {
         type: 'string',
     },
-    created_date: {
+    created_datetime: {
         type: 'string',
     },
-    updated_date: {
+    updated_datetime: {
         type: 'string',
     },
     isDeleted: {

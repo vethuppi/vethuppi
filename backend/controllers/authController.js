@@ -6,9 +6,9 @@ const mongoose = require("mongoose");
 const User = require("../models/userSchema");
 
 
-const {hashGenerate} = require("../helpers/hashing");
-const {hashValidator} = require("../helpers/hashing");
-const {tokenGenerator} = require("../helpers/token");
+const {hashGenerate} = require("../middleware/hashing");
+const {hashValidator} = require("../middleware/hashing");
+const {tokenGenerator} = require("../middleware/token");
 // const authVerify = require("../helpers/authVerify");
 
 // signup route
@@ -28,8 +28,8 @@ exports.signup = async (req, res) => {
                 password: hashPassword,
                 isDeleted: false,
                 role: "customer",
-                created_date: utcTimeStamp,
-                updated_date: utcTimeStamp,
+                created_datetime: utcTimeStamp,
+                updated_datetime: utcTimeStamp,
             })
             const savedUser = await user.save();
             res.send(savedUser);

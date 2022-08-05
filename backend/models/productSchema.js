@@ -33,10 +33,10 @@ const productSchema = new mongoose.Schema({
         type: 'boolean',
         required: true,
     },
-    created_date: {
+    created_datetime: {
         type: 'string',
     },
-    updated_date: {
+    updated_datetime: {
         type: 'string',
     },
     isDeleted: {

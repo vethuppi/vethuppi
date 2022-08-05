@@ -1,7 +1,7 @@
 const { userModel } = require("../models/userSchema");
 const {tokenValidator} = require("./token");
 
-module.exports = async function(req, res, next) {
+module.exports.Admin = async function(req, res, next) {
     try {
         const {jwt} = req.cookies;
         const valid = await tokenValidator(jwt);

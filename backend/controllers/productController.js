@@ -18,12 +18,14 @@ exports.newProduct = async (req, res) => {
             shop: req.body.shop,
             publisher: req.body.publisher,
             status: true,
-            created_date: utcTimeStamp,
-            updated_date: utcTimeStamp,
+            created_datetime: utcTimeStamp,
+            updated_datetime: utcTimeStamp,
             isDeleted: false,
         })
+
         const savedProduct = await product.save();
         res.send(savedProduct);
+
     } catch (error) {
         res.status(404).json({message: error.message });
     }
