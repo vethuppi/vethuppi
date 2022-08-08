@@ -10,7 +10,7 @@ const orderSchema = new mongoose.Schema({
         type: 'string',
     },
     quantity: {
-        type: 'integer',
+        type: 'number',
     },
     delivery_datetime: {
         type: 'string',

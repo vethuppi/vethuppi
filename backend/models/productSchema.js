@@ -5,33 +5,29 @@ const productCollection = "product"; // collection name is users(user pluralized
 const productSchema = new mongoose.Schema({
     title: {
         type: 'string',
-        required: true,
-        max: 100,
     },
     desc: {
         type: 'string',
-        required: true,
-        max: 1000,
     },
     img: {
-        type: 'string',
-        required: true
+        public_id: {
+            type: 'string',
+        },
+        secure_url: {
+            type: 'string',
+        }
     },
     price: {
         type: 'string',
-        required: true,
     },
     shop: {
         type: 'string',
-        required: true,
     },
     publisher: {
         type: 'string',
-        required: true,
     },
     status: {
         type: 'boolean',
-        required: true,
     },
     created_datetime: {
         type: 'string',

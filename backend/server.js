@@ -1,10 +1,9 @@
-const express = require("express");
-const mongoose = require("mongoose");
+const express = require('express');
+const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
-const dotenv = require("dotenv");
-const fileUpload = require("express-fileupload");
+const dotenv = require('dotenv');
 
-const connectDB = require("./config/db"); // Database configuration
+const connectDB = require('./config/db'); // Database configuration
 
 const app = express();
 dotenv.config();
@@ -13,24 +12,22 @@ connectDB(); // Database Connection
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(
-  fileUpload({
-    useTempFiles: true,
-  })
-);
+
+// middleware
+const authVerify = require('./middleware/authVerify');
 
 // Routes
-const authRoutes = require("./routes/authRoute");
-const userRoutes = require("./routes/userRoute");
-const productRoutes = require("./routes/productRoute");
-const upload = require("./routes/upload");
+const authRoutes = require('./routes/authRoute');
+const userRoutes = require('./routes/userRoute');
+const productRoutes = require('./routes/productRoute');
+const orderRoutes = require('./routes/orderRoute');
 
-const authVerify = require("./middleware/authVerify");
 
 app.use("/", authRoutes);
-app.use("/admin/users", authVerify.Admin, userRoutes);
-app.use("/admin/products", authVerify.Admin, productRoutes);
-app.use("/admin", authVerify.Admin, upload);
+app.use("/admin/users", authVerify.admin, userRoutes);
+app.use("/admin/products", authVerify.admin, productRoutes);
+app.use("/order", authVerify.customer, orderRoutes);
+
 
 app.listen(3000, () => {
   console.log("Server is listening on port 3000");
