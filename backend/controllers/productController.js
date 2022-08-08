@@ -1,19 +1,22 @@
 // builtin modules
-const express = require("express");
-const mongoose = require("mongoose");
+const cloudinary = require('../middleware/cloudinary');
 
 // Models
-const Product = require("../models/productSchema");
+const Product = require('../models/productSchema');
 
 // create new product
 exports.newProduct = async (req, res) => {
     try {
         const utcTimeStamp = new Date().getTime();
+        const result = await cloudinary.uploader.upload(req.file.path);
 
         const product = new Product.productModel({
             title: req.body.title,
             desc: req.body.desc,
-            img: req.body.img,
+            img: {
+                public_id: result.public_id,
+                secure_url: result.secure_url,
+            },
             price: req.body.price + ".00",
             shop: req.body.shop,
             publisher: req.body.publisher,

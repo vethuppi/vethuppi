@@ -1,10 +1,11 @@
-const express = require("express");
-
-const productController = require("../controllers/productController");
+const express = require('express');
 
 const router = express.Router();
 
-router.post("/addproduct", productController.newProduct);
+const productController = require('../controllers/productController');
+const upload = require('../middleware/imageUpload');
+
+router.post("/addproduct", upload.single('image'), productController.newProduct);
 router.get("/", productController.getAllProducts);
 router.get("/:id", productController.getProduct);
 router.patch("/edit/:id", productController.editProduct);

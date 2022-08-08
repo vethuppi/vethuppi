@@ -6,8 +6,8 @@ const mongoose = require("mongoose");
 const User = require("../models/userSchema");
 
 
-const {hashGenerate} = require("../middleware/hashing");
-const {hashValidator} = require("../middleware/hashing");
+const {hashGenerate} = require("../middleware/passwordHash");
+const {hashValidator} = require("../middleware/passwordHash");
 const {tokenGenerator} = require("../middleware/token");
 // const authVerify = require("../helpers/authVerify");
 
