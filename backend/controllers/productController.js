@@ -8,7 +8,7 @@ const Product = require('../models/productSchema');
 exports.newProduct = async (req, res) => {
     try {
         const utcTimeStamp = new Date().getTime();
-        const result = await cloudinary.uploader.upload(req.file.path);
+        const result = await cloudinary.uploader.upload(req.file.path, {folder: 'vethuppi'}, use_filename => true, unique_filename => false);
 
         const product = new Product.productModel({
             title: req.body.title,
