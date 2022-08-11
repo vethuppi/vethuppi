@@ -20,15 +20,18 @@ const authVerify = require('./middleware/authVerify');
 const authRoutes = require('./routes/authRoute');
 const userRoutes = require('./routes/userRoute');
 const productRoutes = require('./routes/productRoute');
+const cartRoutes = require('./routes/cartRoute');
 const orderRoutes = require('./routes/orderRoute');
 
 
 app.use("/", authRoutes);
 app.use("/admin/users", authVerify.admin, userRoutes);
 app.use("/admin/products", authVerify.admin, productRoutes);
+app.use("/cart", authVerify.customer, cartRoutes);
 app.use("/order", authVerify.customer, orderRoutes);
 
-
-app.listen(3000, () => {
-  console.log("Server is listening on port 3000");
+// server configuration
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`Server is listening on port ${PORT}`);
 });

@@ -1,12 +1,21 @@
 // builtin modules
 const cloudinary = require('../middleware/cloudinary');
+const {tokenValidator} = require("../middleware/token");
 
 // Models
 const Product = require('../models/productSchema');
+const User = require("../models/userSchema");
 
 // create new product
 exports.newProduct = async (req, res) => {
     try {
+
+        const {jwt} = req.cookies;
+        const valid = await tokenValidator(jwt);
+        const phone_no = await valid.phone_no;
+        const findUser = await User.userModel.findOne({phone_no: phone_no});
+        const user_id = findUser._id;
+
         const utcTimeStamp = new Date().getTime();
         const result = await cloudinary.uploader.upload(req.file.path, {folder: 'vethuppi'}, use_filename => true, unique_filename => false);
 
@@ -19,7 +28,7 @@ exports.newProduct = async (req, res) => {
             },
             price: req.body.price + ".00",
             shop: req.body.shop,
-            publisher: req.body.publisher,
+            publisher: user_id,
             status: true,
             created_datetime: utcTimeStamp,
             updated_datetime: utcTimeStamp,
@@ -37,7 +46,9 @@ exports.newProduct = async (req, res) => {
 // get all product details route
 exports.getAllProducts = async (req, res) => {
     try {
-        const findProducts = await Product.productModel.find();
+        const findProducts = await Product.productModel.aggregate([
+            { $match: { isDeleted: { $eq: false } } }, 
+        ]);
         res.status(200).json(findProducts);
       } catch (error) {
         res.status(404).json({ message: error.message });

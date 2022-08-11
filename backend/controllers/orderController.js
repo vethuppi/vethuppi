@@ -1,11 +1,10 @@
 // builtin modules
-const express = require("express");
-const mongoose = require("mongoose");
 const {tokenValidator} = require("../middleware/token");
 
 // Models
 const User = require("../models/userSchema");
 const Product = require("../models/productSchema");
+const Cart = require("../models/cartSchema");
 const Order = require("../models/orderSchema");
 
 exports.proceedOrder = async (req, res) => {

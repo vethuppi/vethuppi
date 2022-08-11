@@ -27,7 +27,7 @@ exports.signup = async (req, res) => {
                 address: req.body.address,
                 password: hashPassword,
                 isDeleted: false,
-                role: "admin",
+                role: "customer",
                 created_datetime: utcTimeStamp,
                 updated_datetime: utcTimeStamp,
             })

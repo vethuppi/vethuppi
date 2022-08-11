@@ -6,26 +6,30 @@ const orderSchema = new mongoose.Schema({
     user_id: {
         type: 'string',
     },
-    product_id: {
-        type: 'string',
+    products: {
+        product_id: {
+            type: 'string',
+        },
+        quantity: {
+            type: 'number',
+        },
     },
-    quantity: {
-        type: 'number',
-    },
-    delivery_datetime: {
-        type: 'string',
-    },
-    delivery_address: {
-        type: 'string',
+    delivery: {
+        delivery_datetime: {
+            type: 'string',
+        },
+        delivery_address: {
+            type: 'string',
+        },
+        delivery_status: { // pending, delivered
+            type: 'boolean',
+        },
     },
     datetime: {
         type: 'string',
     },
     status: { // pending, active, inactive
         type: 'string',
-    },
-    delivery_status: { // pending, delivered
-        type: 'boolean',
     },
 })
 
